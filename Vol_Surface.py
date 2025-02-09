@@ -8,9 +8,7 @@ import yfinance as yf
 import numpy as np
 from scipy.stats import norm
 from scipy import stats
-import seaborn as sns
 import requests
-import re
 import matplotlib.pyplot as plt
 import datetime
 import numpy as np
