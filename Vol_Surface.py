@@ -89,10 +89,10 @@ options = query[1]
 today = datetime.date.today()
 #print("Today's Date:", today)
 
-# Convert expiration dates to datetime format
+
 expirations = [datetime.datetime.strptime(date, "%Y-%m-%d").date() for date in options.options]
 
-# Calculate time to expiration (TTE) in days
+
 t = [(exp - today).days for exp in expirations]
 
 t= np.asarray(t)
@@ -154,7 +154,7 @@ def NewtonIV(C, S, K, r, t):
 
 def plot_iv_surface(options_dataC_list, t):
     fig = plt.figure(figsize=(40, 20))
-    #ax = fig.add_subplot(111, projection="3d")
+
 
     X_data = []  # Strike Prices
     Y_data = []  # Days to Expiration (DTE)
@@ -162,7 +162,7 @@ def plot_iv_surface(options_dataC_list, t):
 
     # Loop through each iteration (each expiration date)
     for i, df in enumerate(options_dataC_list):
-        dte = t.loc[i, "dte"]  # Get DTE for this iteration
+        dte = t.loc[i, "dte"]  
         
         for j in range(len(df)):
             X_data.append(df["strike"].iloc[j])
@@ -174,11 +174,11 @@ def plot_iv_surface(options_dataC_list, t):
     Y = np.array(Y_data)
     Z = np.array(Z_data)
 
-    # Create a grid for plotting
+ 
     X_grid, Y_grid = np.meshgrid(np.unique(X), np.unique(Y))
 
     # Interpolate Z values onto the grid
-    #Z_grid = np.zeros_like(X_grid, dtype=float,)
+   
     Z_grid = griddata((X, Y), Z, (X_grid, Y_grid), method="cubic")
     for i in range(len(X)):
         xi = np.where(X_grid[0] == X[i])[0]
@@ -186,7 +186,7 @@ def plot_iv_surface(options_dataC_list, t):
         if xi.size > 0 and yi.size > 0:
             Z_grid[yi[0], xi[0]] = Z[i]
 
-    # Plot the surface
+   
    
    
     fig = go.Figure(data=[go.Surface(z=Z_grid, x=X_grid, y=Y_grid, colorscale="Plasma")])
@@ -208,7 +208,7 @@ def plot_iv_surface(options_dataC_list, t):
 
 
 S = equity['Close'].iloc[-1]  # Stock price from equity data
- # Example risk-free rate (1%)
+
 
 expirations = options.options[1:]
 expirations = [datetime.datetime.strptime(date, "%Y-%m-%d").date() for date in expirations]
@@ -219,7 +219,7 @@ filtered_expirations = [date.strftime("%Y-%m-%d") for date in expirations]
 
 #print (expirations)
 
-# DataFrame to store results
+
 options_dataC = pd.DataFrame()
 options_dataC_list= []
 
@@ -236,7 +236,7 @@ for index1, items in enumerate(filtered_expirations):
 
     # Compute IV using NewtonIV function
     iv_values = NewtonIV(mid_prices, S, call_chain["strike"], r, t.iloc[index1]['dte'])
-    #iv_values = other_root(mid_prices, S, call_chain["strike"], r, t.loc[index1]['dte'])
+   
 
     temp_df = pd.DataFrame({
 
