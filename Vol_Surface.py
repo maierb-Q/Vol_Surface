@@ -111,7 +111,7 @@ def NewtonIV(C, S, K, r, t):
 
     for index, k in enumerate(K):
         count = 0
-        epsilon = 1
+        epsilon = .001
 
         if k <= 0:  # Ensure strike price is valid
             Iv.append(np.nan)
