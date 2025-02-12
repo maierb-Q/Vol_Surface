@@ -179,7 +179,7 @@ def plot_iv_surface(options_dataC_list, t):
 
     # Interpolate Z values onto the grid
    
-    Z_grid = griddata((X, Y), Z, (X_grid, Y_grid), method="cubic")
+    Z_grid = griddata((X, Y), Z, (X_grid, Y_grid), method="Linear")
     for i in range(len(X)):
         xi = np.where(X_grid[0] == X[i])[0]
         yi = np.where(Y_grid[:, 0] == Y[i])[0]
@@ -189,7 +189,7 @@ def plot_iv_surface(options_dataC_list, t):
    
    
    
-    fig = go.Figure(data=[go.Surface(z=Z_grid, x=X_grid, y=Y_grid, colorscale="Plasma")])
+    fig = go.Figure(data=[go.Surface(z=Z_grid, x=X_grid, y=Y_grid, colorscale="Viridis")])
     
     # Update layout for interactive rotation
     fig.update_layout(
